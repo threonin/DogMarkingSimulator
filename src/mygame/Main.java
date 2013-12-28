@@ -21,7 +21,7 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-        Node node = (Node) assetManager.loadModel("Scenes/HouseScene.j3o");
+        Node node = (Node) assetManager.loadModel("Scenes/HouseScene2.j3o");
         rootNode.attachChild(node);
 
         /**
@@ -36,7 +36,7 @@ public class Main extends SimpleApplication {
         sun2.setDirection((new Vector3f(0.5f, 0.5f, 0.5f)).normalizeLocal());
         sun2.setColor(ColorRGBA.White);
         rootNode.addLight(sun2);
-        this.getFlyByCamera().setMoveSpeed(10);
+        this.getFlyByCamera().setMoveSpeed(30);
     }
 
     @Override
