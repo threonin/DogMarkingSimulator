@@ -36,6 +36,7 @@ public class Main extends SimpleApplication {
         sun2.setDirection((new Vector3f(0.5f, 0.5f, 0.5f)).normalizeLocal());
         sun2.setColor(ColorRGBA.White);
         rootNode.addLight(sun2);
+        this.getFlyByCamera().setMoveSpeed(10);
     }
 
     @Override
