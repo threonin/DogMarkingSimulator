@@ -15,6 +15,10 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Node;
 
+/**
+ *
+ * @author Volker Schuller
+ */
 public class Main extends SimpleApplication implements ActionListener {
 
     private Node dog;
@@ -30,7 +34,7 @@ public class Main extends SimpleApplication implements ActionListener {
     @Override
     public void simpleInitApp() {
         this.stateManager.attach(bulletAppState);
-        dogControl = new DogControl(bulletAppState, assetManager.loadMaterial("Materials/puddle.j3m"));
+        dogControl = new DogControl(bulletAppState, assetManager);
         Node node = (Node) assetManager.loadModel("Scenes/HouseScene2.j3o");
         rootNode.attachChild(node);
         CollisionShape sceneShape =

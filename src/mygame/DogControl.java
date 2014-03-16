@@ -3,6 +3,7 @@ package mygame;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
+import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
 import com.jme3.effect.ParticleEmitter;
@@ -18,11 +19,17 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
 import com.jme3.scene.shape.Cylinder;
+import mygame.newpackage.tools.Area;
 
+/**
+ *
+ * @author Volker Schuller
+ */
 public class DogControl extends AbstractControl implements AnimEventListener {
 
     private BulletAppState bulletAppState;
     private BetterCharacterControl physicsCharacter;
+    private AssetManager assetManager;
     private Node dog;
     private Vector3f walkDirection = new Vector3f(0, 0, 0);
     private Vector3f viewDirection = new Vector3f(0, 0, 1);
@@ -31,18 +38,18 @@ public class DogControl extends AbstractControl implements AnimEventListener {
     private AnimChannel channel;
     private ParticleEmitter pee;
     private Material puddleMaterial;
+    private Area area;
 
-    public DogControl() {
-    }
-
-    public DogControl(BulletAppState bulletAppState, Material puddleMaterial) {
+    public DogControl(BulletAppState bulletAppState, AssetManager assetManager) {
         this.bulletAppState = bulletAppState;
-        this.puddleMaterial = puddleMaterial;
+        this.assetManager = assetManager;
+        this.puddleMaterial = assetManager.loadMaterial("Materials/puddle.j3m");
+        area = new Area(assetManager);
     }
 
     @Override
     public Control cloneForSpatial(Spatial spatial) {
-        DogControl dogControl = new DogControl();
+        DogControl dogControl = new DogControl(bulletAppState, assetManager);
         dogControl.setSpatial(spatial);
         return dogControl;
     }
@@ -65,6 +72,7 @@ public class DogControl extends AbstractControl implements AnimEventListener {
         if (bulletAppState != null) {
             bulletAppState.getPhysicsSpace().add(physicsCharacter);
         }
+        area.setNode(spatial.getParent());
     }
 
     @Override
@@ -85,7 +93,6 @@ public class DogControl extends AbstractControl implements AnimEventListener {
 
         // ViewDirection is local to characters physics system!
         // The final world rotation depends on the gravity and on the state of
-        // setApplyPhysicsLocal()
         if (leftRotate) {
             Quaternion rotateL = new Quaternion().fromAngleAxis(FastMath.PI * tpf, Vector3f.UNIT_Y);
             rotateL.multLocal(viewDirection);
@@ -153,6 +160,7 @@ public class DogControl extends AbstractControl implements AnimEventListener {
         Vector3f puddlePos = new Vector3f(0.8f, 0, -0.25f);
         dog.getLocalRotation().multLocal(puddlePos);
         puddleGeom.setLocalTranslation(pos.x + puddlePos.x, pos.y + 0.0125f, pos.z + puddlePos.z);
+        area.addPoint(puddleGeom.getLocalTranslation());
         puddleGeom.setMaterial(puddleMaterial);
         dog.getParent().attachChild(puddleGeom);
     }
