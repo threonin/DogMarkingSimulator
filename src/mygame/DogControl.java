@@ -135,12 +135,31 @@ public class DogControl extends AbstractControl implements AnimEventListener {
         this.rightRotate = rightRotate;
     }
 
+    public boolean isForward() {
+        return forward;
+    }
+
+    public boolean isBackward() {
+        return backward;
+    }
+
+    public boolean isLeftRotate() {
+        return leftRotate;
+    }
+
+    public boolean isRightRotate() {
+        return rightRotate;
+    }
+
     public void mark() {
         forward = false;
         backward = false;
         channel.setAnim("mark");
-        dog.attachChild(pee);
         pee.setEnabled(true);
+    }
+
+    public void jump() {
+        physicsCharacter.jump();
     }
 
     public void onAnimCycleDone(AnimControl control, AnimChannel channel, String animName) {

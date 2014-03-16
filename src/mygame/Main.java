@@ -44,9 +44,19 @@ public class Main extends SimpleApplication implements ActionListener {
         bulletAppState.getPhysicsSpace().addCollisionObject(sceneBody);
 
         dog = (Node) assetManager.loadModel("Models/dog.j3o");
-        dog.setLocalTranslation(-10, 2f, 0);
+        dog.setLocalTranslation(-30, 2f, 0);
         rootNode.attachChild(dog);
         dog.addControl(dogControl);
+
+        for (int x = 0; x < 10; x++) {
+            for (int z = 0; z < 10; z++) {
+                Node npcdog = (Node) assetManager.loadModel("Models/dog.j3o");
+                npcdog.setLocalTranslation(-10 + x, 0, 0 + z);
+                rootNode.attachChild(npcdog);
+                npcdog.addControl(new DogControl(bulletAppState, assetManager));
+                npcdog.addControl(new DogNpcControl());
+            }
+        }
 
         getFlyByCamera().setEnabled(false);
         ChaseCamera chaseCam = new ChaseCamera(getCamera(), dog, getInputManager());
@@ -75,12 +85,14 @@ public class Main extends SimpleApplication implements ActionListener {
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_RIGHT));
         inputManager.addMapping("Forward", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("Backward", new KeyTrigger(KeyInput.KEY_DOWN));
-        inputManager.addMapping("Mark", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("Jump", new KeyTrigger(KeyInput.KEY_SPACE));
+        inputManager.addMapping("Mark", new KeyTrigger(KeyInput.KEY_RSHIFT));
         inputManager.addMapping("Change Skin", new KeyTrigger(KeyInput.KEY_TAB));
         inputManager.addListener(this, "Left");
         inputManager.addListener(this, "Right");
         inputManager.addListener(this, "Forward");
         inputManager.addListener(this, "Backward");
+        inputManager.addListener(this, "Jump");
         inputManager.addListener(this, "Mark");
         inputManager.addListener(this, "Change Skin");
     }
@@ -101,6 +113,8 @@ public class Main extends SimpleApplication implements ActionListener {
                 ((Node) dog.getChild("Dog")).getChild(0).setMaterial(assetManager.loadMaterial(skinchange ? "Materials/Generated/dog-skin.j3m" : "Materials/Generated/dog-skin2.j3m"));
                 skinchange = !skinchange;
             }
+        } else if (value) {
+            dogControl.jump();
         }
     }
 }
