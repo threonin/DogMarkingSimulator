@@ -7,10 +7,12 @@ import com.jme3.math.Spline;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
+import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Curve;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
+import mygame.DogControl;
 
 /**
  *
@@ -93,8 +95,12 @@ public class Area {
     }
 
     private void addPointInRightPosition(Vector3f p) {
-        if (path != null && path.contains(p.x, p.z)) {
-            return;
+        for (Spatial spatial : node.getChildren()) {
+            DogControl dog = spatial.getControl(DogControl.class);
+            if (dog != null && dog.getArea().getPath() != null
+                    && dog.getArea().getPath().contains(p.x, p.z)) {
+                return;
+            }
         }
         int nearest = getNearestPoint(p);
         int prev = getFirstAffectedPoint(nearest, p);
@@ -197,5 +203,9 @@ public class Area {
         } else {
             points.add(i, p);
         }
+    }
+
+    public Path2D.Float getPath() {
+        return path;
     }
 }

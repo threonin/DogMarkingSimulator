@@ -151,6 +151,10 @@ public class DogControl extends AbstractControl implements AnimEventListener {
         return rightRotate;
     }
 
+    public Area getArea() {
+        return area;
+    }
+
     public void mark() {
         forward = false;
         backward = false;
