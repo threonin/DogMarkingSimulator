@@ -3,6 +3,7 @@ package mygame;
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
 import com.jme3.animation.AnimEventListener;
+import com.jme3.animation.LoopMode;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.control.BetterCharacterControl;
@@ -159,6 +160,7 @@ public class DogControl extends AbstractControl implements AnimEventListener {
         forward = false;
         backward = false;
         channel.setAnim("mark");
+        channel.setLoopMode(LoopMode.DontLoop);
         pee.setEnabled(true);
     }
 
