@@ -1,4 +1,4 @@
-package mygame.newpackage.tools;
+package dogmarkingsimulator.tools;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
@@ -12,7 +12,7 @@ import com.jme3.scene.shape.Curve;
 import java.awt.geom.Path2D;
 import java.util.ArrayList;
 import java.util.List;
-import mygame.DogControl;
+import dogmarkingsimulator.DogControl;
 
 /**
  *

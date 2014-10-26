@@ -1,4 +1,4 @@
-package mygame;
+package dogmarkingsimulator;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
@@ -20,7 +20,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.control.AbstractControl;
 import com.jme3.scene.control.Control;
 import com.jme3.scene.shape.Cylinder;
-import mygame.newpackage.tools.Area;
+import dogmarkingsimulator.tools.Area;
 
 /**
  *

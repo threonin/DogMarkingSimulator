@@ -1,4 +1,4 @@
-package mygame;
+package dogmarkingsimulator;
 
 import com.jme3.animation.AnimChannel;
 import com.jme3.animation.AnimControl;
