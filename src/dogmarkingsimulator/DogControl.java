@@ -121,6 +121,7 @@ public class DogControl extends AbstractControl implements AnimEventListener {
     public void setBackward(boolean backward) {
         this.backward = backward;
         if (backward) {
+            channel.reset(false);
             channel.setAnim("walk");
             channel.setSpeed(-2);
         } else {
